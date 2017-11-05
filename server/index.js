@@ -12,9 +12,12 @@ app.get('/', function (req, res) {
 let game = new Game(10,10);
 
 io.on('connection', function (socket) {
+    console.log("USER CONNECTED");
   socket.on('join', function (msg) {
+      console.log("In on join", msg.name);
     io.emit('joined', msg.name + " joined the game!");
     game.addPlayer(msg.name);
+    console.log("GAme player", game.getPlayerPositions())
     io.emit('board', game.getPlayerPositions());
   });
   socket.on('leave', function (msg) {

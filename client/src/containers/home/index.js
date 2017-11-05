@@ -8,16 +8,16 @@ import {
     decrement,
     decrementAsync
 } from '../../modules/counter';
-import {subscribeToTimer} from '../../api';
+import {joinGame} from '../../api';
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timestamp: 'no timestamp yet'
+            board: 'no board yet'
         };
-        subscribeToTimer((err, timestamp) => this.setState({
-            timestamp
+        joinGame((err, board) => this.setState({
+            board
         }));
     }
 
@@ -25,16 +25,9 @@ class Home extends Component {
         return (
             <div className="App">
                 <p className="App-intro">
-                    This is the timer value: {this.state.timestamp}
                 </p>
                 <h1>Chill Dude TAG</h1>
-
-
-                <ul id="messages"></ul>
-                <form action="">
-                    <input id="m" autocomplete="off"/>
-                    <button>Send</button>
-                </form>
+                <h4>Board: {this.state.board}</h4>
             </div>
         );
     }
@@ -44,7 +37,7 @@ class Home extends Component {
 const mapStateToProps = state => ({
     count: state.counter.count,
     isIncrementing: state.counter.isIncrementing,
-    isDecrementing: state.counter.isDecrementing
+    isDecrementing: state.counter.isDecrementing,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
