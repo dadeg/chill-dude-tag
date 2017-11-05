@@ -8,7 +8,7 @@ function joinGame(cb) {
     console.log("Inside Join game");
     // socket.on('timer', timestamp => cb(null, timestamp));
     socket.emit('join', playerObj);
-    // socket.on('board', board => cb(null, board));
+    socket.on('board', board => cb(null, board));
 }
 
 export { joinGame };{ joinGame }
