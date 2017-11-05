@@ -25,7 +25,6 @@ module.exports = class Game {
     this.boardWidth = boardWidth;
     this.boardHeight = boardHeight;
     this.players = [];
-    this.hasSeeker = false;
   }
   
   getPlayerPositions() {
@@ -34,10 +33,10 @@ module.exports = class Game {
 
   addPlayer(name) {
     let shouldBeSeeker = false;
-    if (!this.hasSeeker) {
+    if (!this.players.find(player => player.isSeeker)) {
       shouldBeSeeker = true;
-      this.hasSeeker = true;
     }
+    
     const player = {
       name: name,
       x: getRandomPosition(this.boardWidth),
