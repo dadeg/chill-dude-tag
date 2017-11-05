@@ -6,7 +6,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-let game = new Game();
+// let game = new Game();
 
 io.on('connection', function (socket) {
   socket.on('join', function (msg) {
@@ -26,6 +26,6 @@ io.on('connection', function (socket) {
   });
 });
 
-http.listen(3000, function () {
-  console.log('listening on *:3000');
+http.listen(3001, function () {
+  console.log('listening on *:3001');
 });
