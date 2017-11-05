@@ -17,7 +17,7 @@ io.on('connection', function (socket) {
     game.addPlayer(msg.name);
     io.emit('board', game.getPlayerPositions());
   });
-  socket.on('leave', function (msg) {
+  socket.on('disconnect', function (msg) {
     io.emit('left', msg.name + " left the game!");
     game.removePlayer(msg.name);
     io.emit('board', game.getPlayerPositions());
