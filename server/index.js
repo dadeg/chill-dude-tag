@@ -12,21 +12,23 @@ app.get('/', function (req, res) {
 let game = new Game(10,10);
 
 io.on('connection', function (socket) {
-    console.log("USER CONNECTED");
-  socket.on('join', function (msg) {
-      console.log("In on join", msg.name);
-    io.emit('joined', msg.name + " joined the game!");
-    game.addPlayer(msg.name);
-    console.log("GAme player", game.getPlayerPositions())
+  console.log('user connected', socket.id);
+  
+  socket.on('join', function () {
+    console.log("user joined game", socket.id);
+    io.emit('joined', socket.id + " joined the game!");
+    game.addPlayer(socket.id);
     io.emit('board', game.getPlayerPositions());
   });
   socket.on('disconnect', function (msg) {
-    io.emit('left', msg.name + " left the game!");
-    game.removePlayer(msg.name);
+    console.log("user left game", socket.id);
+    io.emit('left', socket.id + " left the game!");
+    game.removePlayer(socket.id);
     io.emit('board', game.getPlayerPositions());
   });
   socket.on('move', function (msg) {
-    game.addMove(msg.name, msg.direction);
+    console.log("user made a move", socket.id, msg.direction);
+    game.addMove(socket.id, msg.direction);
     io.emit('board', game.getPlayerPositions());
   });
 });
